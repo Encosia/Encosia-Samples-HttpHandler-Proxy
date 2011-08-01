@@ -29,12 +29,12 @@ namespace HttpHandler_Proxy {
       string response = twitter.DownloadString(requestUrl);
 
       // This monstrosity essentially just caches the result for twitter-status-screenName,
-      //  with a maximum lifetime of 5 minutes from the time that we first cached it.
+      //  with a maximum lifetime of 5 minutes from now.
       context.Cache.Add("twitter-status-" + screenName, response,
         null, DateTime.Now.AddMinutes(5), System.Web.Caching.Cache.NoSlidingExpiration,
         System.Web.Caching.CacheItemPriority.Normal, null);
 
-      context.Response.ContentType = twitter.ResponseHeaders["content-type"];
+      context.Response.ContentType = "application/json";
       context.Response.Write(response);
     }
 
