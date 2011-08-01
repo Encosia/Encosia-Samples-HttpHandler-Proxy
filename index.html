@@ -2,19 +2,32 @@
 <html>
 <head>
   <title>API proxy demo</title>
+  <style>
+    #tweets {
+      margin: 0 auto;
+      width: 300px;
+    }
+  </style>
 </head>
 <body>
-  <div>
+  <div id="tweets">
     <a href="http://twitter.com/Encosia" target="_blank">Follow my updates on Twitter</a>
   </div>
-  <script src="http//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" type="text/javascript"></script>
-  <script>
-    var url = 'TwitterProxy.ashx';
-    var query = 'statuses/user_timeline.json?screen_name=Encosia';
 
-    $.getJSON(url, query, function(response) {
-      console.log(response)
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" type="text/javascript"></script>
+  <script>
+    $.getJSON('TwitterProxy.ashx', { id: 'Encosia' }, function(tweets) {
+      displayTweets(tweets);
     });
+
+    function displayTweets(tweets) {
+      for (var i = 0; i < tweets.length; i++) {
+        var tweet = tweets[i];
+
+        if (tweet.in_reply_to_user_id == null)
+          $('#tweets').append('<p>' + tweet.text + '</p>');
+      }
+    }
   </script>
 </body>
 </html>
