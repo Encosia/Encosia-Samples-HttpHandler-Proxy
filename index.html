@@ -24,6 +24,7 @@
       for (var i = 0; i < tweets.length; i++) {
         var tweet = tweets[i];
 
+        // Only display the tweets that aren't @replies.
         if (tweet.in_reply_to_user_id == null)
           $('#tweets').append('<p>' + tweet.text + '</p>');
       }
