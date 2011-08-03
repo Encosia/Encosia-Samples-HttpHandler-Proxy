@@ -17,9 +17,10 @@ namespace HttpHandler_Proxy {
         id = "Encosia";
 
       // Check to see if the twitter status is already cached,
-      //   then retrieve and return the cached value if so.
-      if (context.Cache["tweets-" + id] != null) {
-        string cachedTweets = context.Cache["tweets-" + id].ToString();
+      // then retrieve and return the cached value if so.
+      object tweetsCache = context.Cache["tweets-" + id];
+      if (tweetsCache != null) {
+        string cachedTweets = tweetsCache.ToString();
 
         context.Response.Write(cachedTweets);
 
